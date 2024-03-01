@@ -1,0 +1,35 @@
+# add user in aws
+resource "aws_iam_user" "this_iam" {
+  name = "terraform-rutvik"
+  path = "/"
+
+  # add tag to the user
+  tags = {
+    name = "this is user created with the help of terraform"
+  }
+
+}
+
+#add the access key to the user
+resource "aws_iam_access_key" "this_key" {
+  user = aws_iam_user.this_iam.name
+}
+
+
+# create the group
+resource "aws_iam_group" "this_group" {
+  name = "rutvik-terraform-group"
+
+}
+
+
+#add user & group in Group-Membership
+resource "aws_iam_group_membership" "rutvik-terraform-group" {
+  name = "terraform-testing-group-membership"
+
+  users = [
+    aws_iam_user.this_iam.name
+  ]
+
+  group = aws_iam_group.this_group.name
+}
