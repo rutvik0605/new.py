@@ -1,4 +1,5 @@
-# add user in aws
+# create user and add it into group using terraform
+
 resource "aws_iam_user" "this_iam" {
   name = "terraform-rutvik"
   path = "/"
